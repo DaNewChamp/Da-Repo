@@ -1,50 +1,97 @@
 [
   {
-    "name": "IMDb (IM)",
-    "url": "https://danewchamp.github.io/ratingicons/imdb.png"
+    "id": "ratings",
+    "name": "Ratings Providers",
+    "description": "Rating and review icons for popular movie, TV, and anime platforms. Drop these into any media dashboard.",
+    "icons": [
+      { "name": "IMDb (IM)", "url": "https://danewchamp.github.io/ratingicons/imdb.png" },
+      { "name": "IMDb Alt (IM)", "url": "https://danewchamp.github.io/ratingicons/imdb-alt.png" },
+      { "name": "Rotten Tomatoes (RT)", "url": "https://danewchamp.github.io/ratingicons/rt.png" },
+      { "name": "Rotten Tomatoes Popcornmeter (PC)", "url": "https://danewchamp.github.io/ratingicons/pc.png" },
+      { "name": "Metacritic (MC)", "url": "https://danewchamp.github.io/ratingicons/mc.png" },
+      { "name": "Letterboxd (LB)", "url": "https://danewchamp.github.io/ratingicons/lb.png" },
+      { "name": "TMDb (TM)", "url": "https://danewchamp.github.io/ratingicons/tmdb.png" },
+      { "name": "TMDb Alt (TM)", "url": "https://danewchamp.github.io/ratingicons/tmdb-alt.png" },
+      { "name": "Trakt (TR)", "url": "https://danewchamp.github.io/ratingicons/trakt.png" },
+      { "name": "RogerEbert (RE)", "url": "https://danewchamp.github.io/ratingicons/rogerebert.png" },
+      { "name": "AniList (AN)", "url": "https://danewchamp.github.io/ratingicons/anilist.png" },
+      { "name": "MyAnimeList (ML)", "url": "https://danewchamp.github.io/ratingicons/mal.png" }
+    ]
   },
   {
-    "name": "IMDb Alt (IM)",
-    "url": "https://danewchamp.github.io/ratingicons/imdb-alt.png"
-  },
-  {
-    "name": "Rotten Tomatoes (RT)",
-    "url": "https://danewchamp.github.io/ratingicons/rt.png"
-  },
-  {
-    "name": "Metacritic (MC)",
-    "url": "https://danewchamp.github.io/ratingicons/mc.png"
-  },
-  {
-    "name": "Letterboxd (LB)",
-    "url": "https://danewchamp.github.io/ratingicons/lb.png"
-  },
-  {
-    "name": "Rotten Tomatoes Popcornmeter (PC)",
-    "url": "https://danewchamp.github.io/ratingicons/pc.png"
-  },
-  {
-    "name": "TMDb (TM)",
-    "url": "https://danewchamp.github.io/ratingicons/tmdb.png"
-  },
-  {
-    "name": "TMDb Alt (TM)",
-    "url": "https://danewchamp.github.io/ratingicons/tmdb-alt.png"
-  },
-  {
-    "name": "Trakt (TR)",
-    "url": "https://danewchamp.github.io/ratingicons/trakt.png"
-  },
-  {
-    "name": "AniList (AN)",
-    "url": "https://danewchamp.github.io/ratingicons/anilist.png"
-  },
-  {
-    "name": "MyAnimeList (ML)",
-    "url": "https://danewchamp.github.io/ratingicons/mal.png"
-  },
-  {
-    "name": "RogerEbert (RE)",
-    "url": "https://danewchamp.github.io/ratingicons/rogerebert.png"
+    "id": "selfhosted",
+    "name": "Self-hosted Apps",
+    "description": "Icons for the most popular self-hosted apps discussed across r/selfhosted, r/homelab, and the homelab community. Icons via selfh.st.",
+    "icons": [
+      { "name": "AIOStreams", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/aiostreams.png" },
+      { "name": "Plex", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/plex.png" },
+      { "name": "Jellyfin", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/jellyfin.png" },
+      { "name": "Emby", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/emby.png" },
+      { "name": "Sonarr", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/sonarr.png" },
+      { "name": "Radarr", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/radarr.png" },
+      { "name": "Lidarr", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/lidarr.png" },
+      { "name": "Readarr", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/readarr.png" },
+      { "name": "Bazarr", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/bazarr.png" },
+      { "name": "Prowlarr", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/prowlarr.png" },
+      { "name": "Overseerr", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/overseerr.png" },
+      { "name": "Jellyseerr", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/jellyseerr.png" },
+      { "name": "Tautulli", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/tautulli.png" },
+      { "name": "Navidrome", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/navidrome.png" },
+      { "name": "Audiobookshelf", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/audiobookshelf.png" },
+      { "name": "Kavita", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/kavita.png" },
+      { "name": "Calibre-Web", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/calibre-web.png" },
+      { "name": "qBittorrent", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/qbittorrent.png" },
+      { "name": "Transmission", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/transmission.png" },
+      { "name": "Deluge", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/deluge.png" },
+      { "name": "SABnzbd", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/sabnzbd.png" },
+      { "name": "NZBGet", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/nzbget.png" },
+      { "name": "Immich", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/immich.png" },
+      { "name": "Photoprism", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/photoprism.png" },
+      { "name": "Nextcloud", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/nextcloud.png" },
+      { "name": "FileRun", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/filerun.png" },
+      { "name": "Syncthing", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/syncthing.png" },
+      { "name": "File Browser", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/file-browser.png" },
+      { "name": "Home Assistant", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/home-assistant.png" },
+      { "name": "Vaultwarden", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/vaultwarden.png" },
+      { "name": "Pi-hole", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/pi-hole.png" },
+      { "name": "AdGuard Home", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/adguard-home.png" },
+      { "name": "Authentik", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/authentik.png" },
+      { "name": "Authelia", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/authelia.png" },
+      { "name": "TinyAuth", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/tinyauth.png" },
+      { "name": "Pocket ID", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/pocket-id.png" },
+      { "name": "Portainer", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/portainer.png" },
+      { "name": "Caddy", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/caddy.png" },
+      { "name": "Nginx Proxy Manager", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/nginx-proxy-manager.png" },
+      { "name": "Traefik", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/traefik.png" },
+      { "name": "Watchtower", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/watchtower.png" },
+      { "name": "Dozzle", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/dozzle.png" },
+      { "name": "Unraid", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/unraid.png" },
+      { "name": "Cockpit", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/cockpit.png" },
+      { "name": "Grafana", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/grafana.png" },
+      { "name": "Uptime Kuma", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/uptime-kuma.png" },
+      { "name": "Netdata", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/netdata.png" },
+      { "name": "Dashdot", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/dashdot.png" },
+      { "name": "Heimdall", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/heimdall.png" },
+      { "name": "Homarr", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/homarr.png" },
+      { "name": "Homer", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/homer.png" },
+      { "name": "Flame", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/flame.png" },
+      { "name": "Paperless-ngx", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/paperless-ngx.png" },
+      { "name": "Paperless AI", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/paperless-ai.png" },
+      { "name": "Hardcover", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/hardcover.png" },
+      { "name": "OnlyOffice", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/onlyoffice.png" },
+      { "name": "Open WebUI", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/open-webui.png" },
+      { "name": "SearXNG", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/searxng.png" },
+      { "name": "Bookstack", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/bookstack.png" },
+      { "name": "Wiki.js", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/wiki-js.png" },
+      { "name": "Stirling PDF", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/stirling-pdf.png" },
+      { "name": "FreshRSS", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/freshrss.png" },
+      { "name": "Gitea", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/gitea.png" },
+      { "name": "Forgejo", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/forgejo.png" },
+      { "name": "Actual Budget", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/actual-budget.png" },
+      { "name": "Firefly III", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/firefly-iii.png" },
+      { "name": "Mealie", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/mealie.png" },
+      { "name": "Grocy", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/grocy.png" },
+      { "name": "Monica", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/monica.png" }
+    ]
   }
 ]

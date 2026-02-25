@@ -1,22 +1,1064 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Rating Icons Preview</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 2rem; }
-    .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, 100px); gap: 1rem; }
-    .icon { text-align: center; font-size: 0.8rem; }
-    img { width: 64px; height: 64px; object-fit: contain; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Station</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:        #09090b;
+            --bg-card:   #0c0c0f;
+            --border:    rgba(255,255,255,0.08);
+            --border-hi: rgba(255,255,255,0.22);
+            --text:      #fafafa;
+            --muted:     #71717a;
+            --subtle:    #3f3f46;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ── Views ───────────────────────────── */
+        .view { display: none; }
+        .view.active { display: block; }
+
+        /* ══════════════════════════════════════
+           HOME VIEW
+        ══════════════════════════════════════ */
+        .home-hero {
+            text-align: center;
+            padding: 5rem 0 3.5rem;
+        }
+
+        .home-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            background: linear-gradient(160deg, #fff 30%, #52525b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.875rem;
+        }
+
+        .home-subtitle {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.65;
+        }
+
+        .home-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 10px;
+            padding: 0.7rem 1.4rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: opacity 0.2s, transform 0.1s;
+            border: none;
+        }
+
+        .hero-btn:active { transform: scale(0.97); }
+        .hero-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+        .hero-btn-primary {
+            background: #fff;
+            color: #000;
+        }
+
+        .hero-btn-primary:hover { opacity: 0.88; }
+
+        .hero-btn-ghost {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border) !important;
+        }
+
+        .hero-btn-ghost:hover { color: var(--text); border-color: var(--border-hi) !important; }
+
+        .hero-meta {
+            margin-top: 1rem;
+            color: var(--subtle);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Category cards grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.25rem;
+            padding-bottom: 5rem;
+        }
+
+        .cat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            cursor: pointer;
+            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .cat-card:hover {
+            border-color: var(--border-hi);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 48px rgba(0,0,0,0.45);
+        }
+
+        /* Icon preview strip */
+        .cat-previews {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            min-height: 52px;
+        }
+
+        .cat-preview-img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            padding: 6px;
+        }
+
+        .cat-preview-more {
+            width: 52px;
+            height: 52px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .coming-soon-pill {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 4px 12px;
+        }
+
+        .cat-body { flex: 1; }
+
+        .cat-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .cat-desc {
+            color: var(--muted);
+            font-size: 0.85rem;
+            line-height: 1.55;
+        }
+
+        .cat-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .cat-count {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--subtle);
+        }
+
+        .cat-arrow {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--muted);
+            transition: color 0.2s, gap 0.2s;
+        }
+
+        .cat-card:hover .cat-arrow {
+            color: var(--text);
+            gap: 8px;
+        }
+
+        /* ══════════════════════════════════════
+           CATEGORY VIEW
+        ══════════════════════════════════════ */
+        .cat-header {
+            padding: 2.5rem 0 2rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.25rem;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            border-radius: 8px;
+            padding: 5px 11px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .back-btn:hover { color: var(--text); border-color: var(--border-hi); }
+
+        .bc-sep { color: var(--subtle); font-size: 0.78rem; }
+        .bc-cur { color: var(--muted); font-size: 0.78rem; }
+
+        .cat-view-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+        }
+
+        .cat-view-desc {
+            color: var(--muted);
+            font-size: 0.875rem;
+        }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex;
+            gap: 0.625rem;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .search-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 180px;
+            max-width: 340px;
+        }
+
+        .search-ico {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            pointer-events: none;
+        }
+
+        .search-input {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.6rem 1rem 0.6rem 2.25rem;
+            border-radius: 9px;
+            color: var(--text);
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input::placeholder { color: var(--muted); }
+        .search-input:focus { border-color: rgba(255,255,255,0.28); }
+
+        .spacer { flex: 1; }
+
+        /* Variant toggle */
+        .variant-toggle {
+            display: inline-flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 3px;
+            gap: 2px;
+        }
+
+        .variant-btn {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: color 0.15s, background 0.15s;
+            white-space: nowrap;
+        }
+
+        .variant-btn:hover { color: var(--text); }
+
+        .variant-btn.active {
+            background: rgba(255,255,255,0.1);
+            color: var(--text);
+        }
+
+        /* Ghost + solid buttons */
+        .btn {
+            border-radius: 8px;
+            padding: 7px 13px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            transition: color 0.2s, border-color 0.2s, opacity 0.2s;
+        }
+
+        .btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        .btn-ghost:hover { color: var(--text); border-color: var(--border-hi); }
+
+        .btn-solid {
+            background: #fff;
+            color: #000;
+            border: none;
+        }
+
+        .btn-solid:hover { opacity: 0.88; }
+
+        /* ── Icon Grid ───────────────────────── */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            padding-bottom: 8rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .card:hover { border-color: var(--border-hi); box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
+
+        .card.selected {
+            border-color: rgba(255,255,255,0.6);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.12);
+        }
+
+        /* Checkbox overlay */
+        .card-check {
+            position: absolute;
+            top: 9px;
+            left: 9px;
+            width: 19px;
+            height: 19px;
+            border: 1.5px solid var(--border-hi);
+            border-radius: 5px;
+            background: rgba(9,9,11,0.7);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.15s, background 0.15s, border-color 0.15s;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .card:hover .card-check,
+        .card.selected .card-check { opacity: 1; }
+
+        .card.selected .card-check { background: #fff; border-color: #fff; }
+
+        .card-check svg { width: 11px; height: 11px; color: #000; display: none; }
+        .card.selected .card-check svg { display: block; }
+
+        /* Card image area */
+        .card-img {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+
+        /* When viewing light-variant icons (dark-on-light design), show white bg */
+        .icon-grid.variant-light .card-img {
+            background: rgba(255,255,255,0.93);
+            border-bottom-color: rgba(0,0,0,0.08);
+        }
+
+        .card-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+            transition: transform 0.2s;
+            pointer-events: none;
+        }
+
+        .card:hover .card-img img { transform: scale(1.07); }
+
+        /* Card footer */
+        .card-foot {
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .card-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Ratings-style: small chip copy button */
+        .copy-url-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            flex-shrink: 0;
+            white-space: nowrap;
+            transition: color 0.15s, border-color 0.15s;
+        }
+
+        /* Selfhosted-style: full-width footer with primary copy + download */
+        .card-foot-sh {
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sh-name {
+            font-size: 0.78rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sh-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .sh-copy-btn {
+            flex: 1;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 7px;
+            padding: 7px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: opacity 0.15s;
+        }
+
+        .sh-copy-btn:hover { opacity: 0.85; }
+        .sh-copy-btn svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+        .sh-dl-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            border-radius: 7px;
+            padding: 7px 9px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            flex-shrink: 0;
+            transition: color 0.15s, border-color 0.15s;
+            white-space: nowrap;
+        }
+
+        .sh-dl-btn:hover { color: var(--text); border-color: var(--border-hi); }
+        .sh-dl-btn svg { width: 11px; height: 11px; }
+
+        .copy-url-btn:hover { color: var(--text); border-color: var(--border-hi); }
+        .copy-url-btn svg { width: 10px; height: 10px; }
+
+        /* ── Selection Bar ───────────────────── */
+        .sel-bar {
+            position: fixed;
+            bottom: 1.75rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(0);
+            background: #fafafa;
+            color: #09090b;
+            border-radius: 14px;
+            padding: 8px 8px 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.08);
+            transition: opacity 0.25s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+            z-index: 50;
+            white-space: nowrap;
+        }
+
+        .sel-bar.hidden {
+            opacity: 0;
+            transform: translateX(-50%) translateY(80px);
+            pointer-events: none;
+        }
+
+        .sel-count { font-size: 0.82rem; font-weight: 700; }
+
+        .sel-divider { width: 1px; height: 18px; background: rgba(0,0,0,0.12); }
+
+        .sel-copy {
+            background: #09090b;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 7px 13px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: opacity 0.2s;
+        }
+
+        .sel-copy:hover { opacity: 0.82; }
+        .sel-copy svg { width: 12px; height: 12px; }
+
+        .sel-clear {
+            background: transparent;
+            border: none;
+            color: #71717a;
+            border-radius: 8px;
+            padding: 7px 10px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .sel-clear:hover { color: #09090b; }
+
+        /* ── Toast ───────────────────────────── */
+        .toast {
+            position: fixed;
+            bottom: 1.75rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--text);
+            color: var(--bg);
+            padding: 9px 22px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            opacity: 0;
+            transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        /* ── Empty state ─────────────────────── */
+        .empty {
+            text-align: center;
+            padding: 5rem 0;
+            color: var(--muted);
+            display: none;
+        }
+
+        .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.4; }
+    </style>
 </head>
 <body>
-  <h1>Rating Icons Preview</h1>
-  <div class="icon-grid">
-    <div class="icon"><img src="imdb.png"><br>IMDb</div>
-    <div class="icon"><img src="rt.png"><br>Rotten Tomatoes</div>
-    <div class="icon"><img src="mc.png"><br>Metacritic</div>
-    <!-- Add icon blocks -->
-  </div>
+
+<!-- ════════════════════════════════════════
+     HOME VIEW
+════════════════════════════════════════ -->
+<div id="view-home" class="view active">
+    <div class="container">
+        <div class="home-hero">
+            <h1 class="home-title">Icon Station</h1>
+            <p class="home-subtitle">A curated icon library for self-hosted apps and media rating services. Free to use.</p>
+            <div class="home-actions">
+                <button class="hero-btn hero-btn-primary" id="globalCopyBtn" onclick="copyGlobalAll()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    Copy All Icons as JSON
+                </button>
+            </div>
+            <p class="hero-meta" id="heroMeta"></p>
+        </div>
+        <div class="category-grid" id="categoryGrid">
+            <!-- injected by JS -->
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     CATEGORY VIEW
+════════════════════════════════════════ -->
+<div id="view-category" class="view">
+    <div class="container">
+        <div class="cat-header">
+            <div class="breadcrumb">
+                <button class="back-btn" onclick="goHome()">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    Back
+                </button>
+                <span class="bc-sep">/</span>
+                <span class="bc-cur" id="bcName"></span>
+            </div>
+            <h1 class="cat-view-title" id="catTitle"></h1>
+            <p class="cat-view-desc" id="catDesc"></p>
+
+            <div class="toolbar">
+                <div class="search-wrap">
+                    <svg class="search-ico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search icons…">
+                </div>
+                <div class="variant-toggle">
+                    <button class="variant-btn active" data-variant="standard" onclick="setVariant('standard')">Default</button>
+                    <button class="variant-btn" data-variant="light" onclick="setVariant('light')">Light</button>
+                    <button class="variant-btn" data-variant="dark" onclick="setVariant('dark')">Dark</button>
+                </div>
+                <div class="spacer"></div>
+                <button class="btn btn-ghost" id="selectAllBtn" onclick="toggleSelectAll()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"></rect><polyline points="9 12 11 14 15 10"></polyline></svg>
+                    Select All
+                </button>
+                <button class="btn btn-solid" id="copyAllBtn" onclick="copyAllJson()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    Copy All JSON
+                </button>
+            </div>
+        </div>
+
+        <div class="icon-grid" id="iconGrid"></div>
+        <div class="empty" id="emptyState">
+            <div class="empty-icon">⬜</div>
+            <p>No icons found.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     FLOATING SELECTION BAR
+════════════════════════════════════════ -->
+<div class="sel-bar hidden" id="selBar">
+    <span class="sel-count" id="selCount">0 selected</span>
+    <div class="sel-divider"></div>
+    <button class="sel-copy" onclick="copySelectedJson()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        Copy Selected JSON
+    </button>
+    <button class="sel-clear" onclick="clearSelection()">Clear</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    // ── State ─────────────────────────────────────────────
+    let categories = [];
+    let currentCatId = null;
+    let selected = new Set();
+    let visibleIcons = [];
+    let currentVariant = 'standard';
+
+    const BROKEN = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM3MTcxN2EiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHJ4PSIyIiByeT0iMiI+PC9yZWN0PjxjaXJjbGUgY3g9IjguNSIgY3k9IjguNSIgcj0iMS41Ij48L2NpcmNsZT48cG9seWxpbmUgcG9pbnRzPSIyMSAxNSAxNiAxMCA1IDIxIj48L3BvbHlsaW5lPjwvc3ZnPg==';
+
+    const SVG_COPY  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+    const SVG_CHECK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+    const SVG_BOX   = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"></rect><polyline points="9 12 11 14 15 10"></polyline></svg>`;
+    const SVG_MINUS = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"></rect><line x1="9" y1="12" x2="15" y2="12"></line></svg>`;
+
+    // ── Boot ──────────────────────────────────────────────
+    async function init() {
+        const res = await fetch('icons.json');
+        categories = await res.json();
+        renderHome();
+        updateHeroMeta();
+        route();
+    }
+
+    // ── Variant ───────────────────────────────────────────
+    function getVariantUrl(url) {
+        if (!url.includes('cdn.jsdelivr.net/gh/selfhst/icons')) return url;
+        if (currentVariant === 'standard') return url;
+        return url.replace(/\.png$/, `-${currentVariant}.png`);
+    }
+
+    function setVariant(variant) {
+        currentVariant = variant;
+        document.querySelectorAll('.variant-btn').forEach(btn =>
+            btn.classList.toggle('active', btn.dataset.variant === variant)
+        );
+        const grid = document.getElementById('iconGrid');
+        grid.classList.toggle('variant-light', variant === 'light');
+        document.querySelectorAll('.card-img img[data-original]').forEach(img => {
+            const variantUrl = getVariantUrl(img.dataset.original);
+            img.src = variantUrl;
+            // Update onerror fallback for new variant
+            img.onerror = function() {
+                if (this.src !== this.dataset.original) {
+                    this.src = this.dataset.original;
+                } else {
+                    this.src = BROKEN;
+                }
+                this.onerror = null;
+            };
+        });
+    }
+
+    // ── Router ────────────────────────────────────────────
+    function route() {
+        const id = location.hash.slice(1);
+        const cat = id && categories.find(c => c.id === id);
+        cat ? openCategory(id, false) : showHome();
+    }
+
+    window.addEventListener('popstate', route);
+
+    function showView(name) {
+        document.getElementById('view-home').classList.toggle('active', name === 'home');
+        document.getElementById('view-category').classList.toggle('active', name === 'category');
+    }
+
+    // ── Home ──────────────────────────────────────────────
+    function showHome() { showView('home'); }
+
+    function goHome() {
+        history.pushState(null, '', location.pathname);
+        showView('home');
+        clearSelection();
+        document.getElementById('searchInput').value = '';
+    }
+
+    function updateHeroMeta() {
+        const total = categories.reduce((s, c) => s + c.icons.length, 0);
+        const cats  = categories.filter(c => c.icons.length > 0).length;
+        document.getElementById('heroMeta').textContent =
+            `${total} icons across ${cats} categories`;
+    }
+
+    function copyGlobalAll() {
+        const all = categories.flatMap(c => c.icons);
+        const btn = document.getElementById('globalCopyBtn');
+        const SVG_C = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
+        const SVG_K = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+        toClipboard(JSON.stringify(all, null, 2), 'All icons copied!');
+        btn.innerHTML = `${SVG_K} Copied!`;
+        setTimeout(() => { btn.innerHTML = `${SVG_C} Copy All Icons as JSON`; }, 2000);
+    }
+
+    function renderHome() {
+        document.getElementById('categoryGrid').innerHTML = categories.map(cat => {
+            const previews = cat.icons.slice(0, 4);
+            const extras   = cat.icons.length - previews.length;
+            const isEmpty  = cat.icons.length === 0;
+
+            const previewHTML = isEmpty
+                ? `<span class="coming-soon-pill">Coming Soon</span>`
+                : `${previews.map(i => `<img class="cat-preview-img" src="${i.url}" alt="${i.name}" onerror="this.src='${BROKEN}'">`).join('')}${extras > 0 ? `<div class="cat-preview-more">+${extras}</div>` : ''}`;
+
+            const countText = isEmpty
+                ? 'No icons yet'
+                : `${cat.icons.length} icon${cat.icons.length !== 1 ? 's' : ''}`;
+
+            return `<div class="cat-card" onclick="openCategory('${cat.id}')">
+                <div class="cat-previews">${previewHTML}</div>
+                <div class="cat-body">
+                    <div class="cat-name">${cat.name}</div>
+                    <div class="cat-desc">${cat.description || ''}</div>
+                </div>
+                <div class="cat-footer">
+                    <span class="cat-count">${countText}</span>
+                    <span class="cat-arrow">Browse <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    // ── Category view ─────────────────────────────────────
+    function openCategory(id, push = true) {
+        const cat = categories.find(c => c.id === id);
+        if (!cat) return;
+        currentCatId = id;
+        if (push) history.pushState(null, '', `#${id}`);
+        document.getElementById('bcName').textContent   = cat.name;
+        document.getElementById('catTitle').textContent = cat.name;
+        document.getElementById('catDesc').textContent  = cat.description || '';
+        document.getElementById('searchInput').value    = '';
+        clearSelection();
+        setVariant('standard');
+        renderGrid(cat.icons);
+        showView('category');
+    }
+
+    function renderGrid(icons) {
+        visibleIcons = icons;
+        const grid  = document.getElementById('iconGrid');
+        const empty = document.getElementById('emptyState');
+
+        if (icons.length === 0) {
+            grid.innerHTML = '';
+            empty.style.display = 'block';
+            return;
+        }
+        empty.style.display = 'none';
+
+        const isSH = currentCatId === 'selfhosted';
+        grid.innerHTML = icons.map(icon => {
+            const safe     = icon.url.replace(/'/g, "\\'");
+            const safeName = icon.name.replace(/'/g, "\\'");
+            const isSelected  = selected.has(icon.url);
+            const displayUrl  = getVariantUrl(icon.url);
+            const variantSafe = displayUrl.replace(/'/g, "\\'");
+
+            const footer = isSH ? `
+                <div class="card-foot-sh">
+                    <span class="sh-name">${icon.name}</span>
+                    <div class="sh-actions">
+                        <button class="sh-copy-btn" onclick="copyUrl('${safe}', event)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            Copy URL
+                        </button>
+                        <button class="sh-dl-btn" title="Download PNG" onclick="downloadIcon('${variantSafe}', '${safeName}', 'png', event)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            PNG
+                        </button>
+                        <button class="sh-dl-btn" title="Download SVG" onclick="downloadIcon('${variantSafe}', '${safeName}', 'svg', event)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            SVG
+                        </button>
+                    </div>
+                </div>` : `
+                <div class="card-foot">
+                    <span class="card-name">${icon.name}</span>
+                    <button class="copy-url-btn" onclick="copyUrl('${safe}', event)">
+                        ${SVG_COPY} URL
+                    </button>
+                </div>`;
+
+            return `<div class="card${isSelected ? ' selected' : ''}" data-url="${icon.url}" onclick="toggleCard(this, event)">
+                <div class="card-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <div class="card-img">
+                    <img src="${displayUrl}" data-original="${icon.url}" alt="${icon.name}" loading="lazy" onerror="this.src='${displayUrl !== icon.url ? icon.url : BROKEN}'">
+                </div>
+                ${footer}
+            </div>`;
+        }).join('');
+    }
+
+    // ── Selection ─────────────────────────────────────────
+    function toggleCard(card, e) {
+        if (e.target.closest('.copy-url-btn, .sh-copy-btn, .sh-dl-btn')) return;
+        const url = card.dataset.url;
+        selected.has(url) ? selected.delete(url) : selected.add(url);
+        card.classList.toggle('selected', selected.has(url));
+        syncSelectionBar();
+    }
+
+    function toggleSelectAll() {
+        const allOn = visibleIcons.every(i => selected.has(i.url));
+        visibleIcons.forEach(i => allOn ? selected.delete(i.url) : selected.add(i.url));
+        renderGrid(visibleIcons);
+        syncSelectionBar();
+    }
+
+    function clearSelection() {
+        selected.clear();
+        document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
+        syncSelectionBar();
+    }
+
+    function syncSelectionBar() {
+        const n = selected.size;
+        document.getElementById('selCount').textContent = `${n} selected`;
+        document.getElementById('selBar').classList.toggle('hidden', n === 0);
+
+        // Update Select All button label
+        const btn = document.getElementById('selectAllBtn');
+        if (btn && visibleIcons.length > 0) {
+            const allOn = visibleIcons.every(i => selected.has(i.url));
+            btn.innerHTML = allOn
+                ? `${SVG_MINUS} Deselect All`
+                : `${SVG_BOX} Select All`;
+        }
+    }
+
+    // ── Copy actions ──────────────────────────────────────
+    function copySelectedJson() {
+        const cat = categories.find(c => c.id === currentCatId);
+        if (!cat) return;
+        const icons = cat.icons.filter(i => selected.has(i.url));
+        toClipboard(JSON.stringify(icons, null, 2), 'JSON copied!');
+    }
+
+    function copyAllJson() {
+        const cat = categories.find(c => c.id === currentCatId);
+        if (!cat) return;
+        toClipboard(JSON.stringify(cat.icons, null, 2), 'JSON copied!');
+        flashBtn('copyAllBtn', `${SVG_CHECK} Copied!`, `${SVG_COPY} Copy All JSON`);
+    }
+
+    function copyUrl(url, e) {
+        e.stopPropagation();
+        toClipboard(url, 'URL copied!');
+    }
+
+    async function downloadIcon(url, name, format, e) {
+        e.stopPropagation();
+        // Derive SVG URL from PNG URL if needed
+        const dlUrl = format === 'svg'
+            ? url.replace('/png/', '/svg/').replace(/\.png$/, '.svg')
+            : url;
+        try {
+            const res = await fetch(dlUrl);
+            if (!res.ok) throw new Error('not found');
+            const blob = await res.blob();
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `${name}.${format}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+            toast(`${format.toUpperCase()} downloaded!`);
+        } catch {
+            window.open(dlUrl, '_blank');
+        }
+    }
+
+    function toClipboard(text, msg) {
+        navigator.clipboard.writeText(text)
+            .then(() => toast(msg))
+            .catch(() => alert('Copy failed — check browser permissions.'));
+    }
+
+    function flashBtn(id, temp, original) {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.innerHTML = temp;
+        setTimeout(() => { btn.innerHTML = original; }, 2000);
+    }
+
+    // ── Search ────────────────────────────────────────────
+    document.getElementById('searchInput').addEventListener('input', e => {
+        const term = e.target.value.toLowerCase().trim();
+        const cat  = categories.find(c => c.id === currentCatId);
+        if (!cat) return;
+        renderGrid(term ? cat.icons.filter(i => i.name.toLowerCase().includes(term)) : cat.icons);
+        syncSelectionBar();
+    });
+
+    // ── Toast ─────────────────────────────────────────────
+    let toastTimer;
+    function toast(msg) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 2000);
+    }
+
+    init().catch(console.error);
+</script>
 </body>
 </html>
