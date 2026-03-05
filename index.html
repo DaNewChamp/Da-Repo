@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Icon Station</title>
+    <title>Champ's Media Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -385,6 +385,33 @@
 
         .btn-solid:hover { opacity: 0.88; }
 
+        .manifest-hint {
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.6rem 0.75rem;
+            display: none;
+            align-items: center;
+            gap: 0.45rem;
+            width: fit-content;
+            max-width: 100%;
+        }
+
+        .manifest-hint.show { display: inline-flex; }
+
+        .manifest-hint code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.72rem;
+            color: var(--text);
+            background: rgba(255,255,255,0.08);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.08rem 0.35rem;
+            white-space: nowrap;
+        }
+
         /* ── Icon Grid ───────────────────────── */
         .icon-grid {
             display: grid;
@@ -675,8 +702,8 @@
 <div id="view-home" class="view active">
     <div class="container">
         <div class="home-hero">
-            <h1 class="home-title">Icon Station</h1>
-            <p class="home-subtitle">A curated icon library for self-hosted apps and media rating services. Free to use.</p>
+            <h1 class="home-title">Champ's Media Hub</h1>
+            <p class="home-subtitle">A curated icon library for self-hosted apps, media ratings, and Fusion customizations. Free to use.</p>
             <div class="home-actions">
                 <button class="hero-btn hero-btn-primary" id="globalCopyBtn" onclick="copyGlobalAll()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
@@ -728,6 +755,9 @@
                     Copy All JSON
                 </button>
             </div>
+            <div class="manifest-hint" id="manifestHint">
+                Replace <code>YOUR_AIOMETADATA_MANIFEST.JSON</code> with your full <code>manifest.json</code> URL before importing.
+            </div>
         </div>
 
         <div class="icon-grid" id="iconGrid"></div>
@@ -760,6 +790,7 @@
     let selected = new Set();
     let visibleIcons = [];
     let currentVariant = 'standard';
+    const FUSION_CAT_ID = 'fusion-customizations';
 
     const BROKEN = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM3MTcxN2EiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHJ4PSIyIiByeT0iMiI+PC9yZWN0PjxjaXJjbGUgY3g9IjguNSIgY3k9IjguNSIgcj0iMS41Ij48L2NpcmNsZT48cG9seWxpbmUgcG9pbnRzPSIyMSAxNSAxNiAxMCA1IDIxIj48L3BvbHlsaW5lPjwvc3ZnPg==';
 
@@ -855,7 +886,7 @@
 
             const previewHTML = isEmpty
                 ? `<span class="coming-soon-pill">Coming Soon</span>`
-                : `${previews.map(i => `<img class="cat-preview-img" src="${i.url}" alt="${i.name}" onerror="this.src='${BROKEN}'">`).join('')}${extras > 0 ? `<div class="cat-preview-more">+${extras}</div>` : ''}`;
+                : `${previews.map(i => `<img class="cat-preview-img" src="${i.previewUrl || i.url}" alt="${i.name}" onerror="this.src='${BROKEN}'">`).join('')}${extras > 0 ? `<div class="cat-preview-more">+${extras}</div>` : ''}`;
 
             const countText = isEmpty
                 ? 'No icons yet'
@@ -885,6 +916,7 @@
         document.getElementById('catTitle').textContent = cat.name;
         document.getElementById('catDesc').textContent  = cat.description || '';
         document.getElementById('searchInput').value    = '';
+        document.getElementById('manifestHint').classList.toggle('show', id === FUSION_CAT_ID);
         clearSelection();
         setVariant('standard');
         renderGrid(cat.icons);
@@ -908,7 +940,8 @@
             const safe     = icon.url.replace(/'/g, "\\'");
             const safeName = icon.name.replace(/'/g, "\\'");
             const isSelected  = selected.has(icon.url);
-            const displayUrl  = getVariantUrl(icon.url);
+            const imageUrl    = icon.previewUrl || icon.url;
+            const displayUrl  = icon.previewUrl ? icon.previewUrl : getVariantUrl(icon.url);
             const variantSafe = displayUrl.replace(/'/g, "\\'");
 
             const footer = isSH ? `
@@ -939,7 +972,7 @@
             return `<div class="card${isSelected ? ' selected' : ''}" data-url="${icon.url}" onclick="toggleCard(this, event)">
                 <div class="card-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
                 <div class="card-img">
-                    <img src="${displayUrl}" data-original="${icon.url}" alt="${icon.name}" loading="lazy" onerror="this.src='${displayUrl !== icon.url ? icon.url : BROKEN}'">
+                    <img src="${displayUrl}" data-original="${imageUrl}" alt="${icon.name}" loading="lazy" onerror="this.src='${displayUrl !== imageUrl ? imageUrl : BROKEN}'">
                 </div>
                 ${footer}
             </div>`;
@@ -984,18 +1017,38 @@
     }
 
     // ── Copy actions ──────────────────────────────────────
-    function copySelectedJson() {
+    async function copySelectedJson() {
+        if (currentCatId === FUSION_CAT_ID) {
+            await copyFusionWidgetsJson();
+            return;
+        }
         const cat = categories.find(c => c.id === currentCatId);
         if (!cat) return;
         const icons = cat.icons.filter(i => selected.has(i.url));
         toClipboard(JSON.stringify(icons, null, 2), 'JSON copied!');
     }
 
-    function copyAllJson() {
+    async function copyAllJson() {
+        if (currentCatId === FUSION_CAT_ID) {
+            await copyFusionWidgetsJson();
+            flashBtn('copyAllBtn', `${SVG_CHECK} Copied!`, `${SVG_COPY} Copy All JSON`);
+            return;
+        }
         const cat = categories.find(c => c.id === currentCatId);
         if (!cat) return;
         toClipboard(JSON.stringify(cat.icons, null, 2), 'JSON copied!');
         flashBtn('copyAllBtn', `${SVG_CHECK} Copied!`, `${SVG_COPY} Copy All JSON`);
+    }
+
+    async function copyFusionWidgetsJson() {
+        try {
+            const res = await fetch('fusion-widgets.json');
+            if (!res.ok) throw new Error('not found');
+            const text = await res.text();
+            toClipboard(text, 'Fusion Widgets JSON copied!');
+        } catch {
+            toast('Could not load fusion-widgets.json');
+        }
     }
 
     function copyUrl(url, e) {
@@ -1027,9 +1080,41 @@
     }
 
     function toClipboard(text, msg) {
-        navigator.clipboard.writeText(text)
-            .then(() => toast(msg))
-            .catch(() => alert('Copy failed — check browser permissions.'));
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text)
+                .then(() => toast(msg))
+                .catch(() => fallbackCopy(text, msg));
+            return;
+        }
+        fallbackCopy(text, msg);
+    }
+
+    function fallbackCopy(text, msg) {
+        const area = document.createElement('textarea');
+        area.value = text;
+        area.setAttribute('readonly', '');
+        area.style.position = 'fixed';
+        area.style.top = '-1000px';
+        area.style.left = '-1000px';
+        document.body.appendChild(area);
+        area.focus();
+        area.select();
+
+        let copied = false;
+        try {
+            copied = document.execCommand('copy');
+        } catch {
+            copied = false;
+        }
+
+        document.body.removeChild(area);
+
+        if (copied) {
+            toast(msg);
+        } else {
+            toast('Copy blocked. Open in browser or copy manually.');
+            window.prompt('Copy this content manually:', text);
+        }
     }
 
     function flashBtn(id, temp, original) {

@@ -1,0 +1,155 @@
+{
+  "exportType" : "fusionWidgets",
+  "exportVersion" : 1,
+  "widgets" : [
+    {
+      "dataSource" : {
+        "kind" : "collection",
+        "payload" : {
+          "items" : [
+            {
+              "dataSources" : [
+                {
+                  "kind" : "addonCatalog",
+                  "payload" : {
+                    "addonId" : "YOUR_AIOMETADATA_MANIFEST.JSON",
+                    "catalogId" : "movie::mdblist.88302",
+                    "type" : "movie"
+                  }
+                }
+              ],
+              "hideTitle" : false,
+              "id" : "6EDAC984-0164-4496-B1FC-8D493439D562",
+              "imageAspect" : "wide",
+              "imageURL" : "https://i.postimg.cc/gkXgj8kM/trending_movies_thumbnail_2.jpg",
+              "title" : "Trending Movies"
+            },
+            {
+              "dataSources" : [
+                {
+                  "kind" : "addonCatalog",
+                  "payload" : {
+                    "addonId" : "YOUR_AIOMETADATA_MANIFEST.JSON",
+                    "catalogId" : "series::mdblist.88303",
+                    "type" : "series"
+                  }
+                }
+              ],
+              "hideTitle" : false,
+              "id" : "3BD649F8-12B3-4254-A0EA-9AFD39BD2B3B",
+              "imageAspect" : "wide",
+              "imageURL" : "https://i.postimg.cc/28b0yh80/trending_shows_thumbnail_2.jpg",
+              "title" : "Trending Shows"
+            },
+            {
+              "dataSources" : [
+                {
+                  "kind" : "addonCatalog",
+                  "payload" : {
+                    "addonId" : "YOUR_AIOMETADATA_MANIFEST.JSON",
+                    "catalogId" : "movie::mdblist.86934",
+                    "type" : "movie"
+                  }
+                }
+              ],
+              "hideTitle" : false,
+              "id" : "EC8B97D0-1E5D-45E9-9173-33BF2249BB15",
+              "imageAspect" : "wide",
+              "imageURL" : "https://i.postimg.cc/rF0fsxFQ/latest_movies_thumbnail_2.jpg",
+              "title" : "Latest Movies"
+            },
+            {
+              "dataSources" : [
+                {
+                  "kind" : "addonCatalog",
+                  "payload" : {
+                    "addonId" : "YOUR_AIOMETADATA_MANIFEST.JSON",
+                    "catalogId" : "series::mdblist.86710",
+                    "type" : "series"
+                  }
+                }
+              ],
+              "hideTitle" : false,
+              "id" : "ECAD21FE-1456-4902-832C-ADA36F9C8BE6",
+              "imageAspect" : "wide",
+              "imageURL" : "https://i.postimg.cc/tCZBJWCv/latest_shows_thumbnail_2.jpg",
+              "title" : "Latest Shows"
+            }
+          ]
+        }
+      },
+      "id" : "collection.6DE902D0-26B7-4D70-9B63-C4544D8258F9",
+      "title" : "Latest Releases",
+      "type" : "collection.row"
+    },
+    {
+      "cacheTTL" : 1800,
+      "dataSource" : {
+        "kind" : "addonCatalog",
+        "payload" : {
+          "addonId" : "YOUR_AIOMETADATA_MANIFEST.JSON",
+          "catalogId" : "movie::mdblist.87667",
+          "type" : "movie"
+        }
+      },
+      "id" : "catalog.A803615E-8C08-4E6A-A7F9-A0DE5BFB2EFB",
+      "limit" : 20,
+      "presentation" : {
+        "aspectRatio" : "poster",
+        "badges" : {
+          "providers" : false,
+          "ratings" : true
+        },
+        "cardStyle" : "medium"
+      },
+      "title" : "Trending Movies",
+      "type" : "row.classic"
+    },
+    {
+      "cacheTTL" : 1800,
+      "dataSource" : {
+        "kind" : "addonCatalog",
+        "payload" : {
+          "addonId" : "YOUR_AIOMETADATA_MANIFEST.JSON",
+          "catalogId" : "series::mdblist.110250",
+          "type" : "series"
+        }
+      },
+      "id" : "catalog.BD15CB44-DDD4-4C2C-94F1-84F963FE18E8",
+      "limit" : 20,
+      "presentation" : {
+        "aspectRatio" : "poster",
+        "badges" : {
+          "providers" : false,
+          "ratings" : true
+        },
+        "cardStyle" : "medium"
+      },
+      "title" : "Trending Shows",
+      "type" : "row.classic"
+    },
+    {
+      "cacheTTL" : 1800,
+      "dataSource" : {
+        "kind" : "addonCatalog",
+        "payload" : {
+          "addonId" : "YOUR_AIOMETADATA_MANIFEST.JSON",
+          "catalogId" : "movie::mdblist.88328",
+          "type" : "movie"
+        }
+      },
+      "id" : "catalog.12D41350-77FC-41D0-90CE-C971756D658D",
+      "limit" : 20,
+      "presentation" : {
+        "aspectRatio" : "poster",
+        "badges" : {
+          "providers" : false,
+          "ratings" : true
+        },
+        "cardStyle" : "medium"
+      },
+      "title" : "Netflix Movies",
+      "type" : "row.classic"
+    }
+  ]
+}

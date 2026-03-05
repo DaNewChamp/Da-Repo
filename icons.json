@@ -92,5 +92,13 @@
       { "name": "Grocy", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/grocy.png" },
       { "name": "Monica", "url": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/monica.png" }
     ]
+  },
+  {
+    "id": "fusion-customizations",
+    "name": "Fusion Customizations",
+    "description": "Custom Fusion exports for quick setup. Includes hosted widget JSON you can import directly.",
+    "icons": [
+      { "name": "Fusion Widgets", "url": "fusion-widgets.json", "previewUrl": "fusion-widgets.svg" }
+    ]
   }
 ]
