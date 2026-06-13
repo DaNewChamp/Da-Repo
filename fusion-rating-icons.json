@@ -1,0 +1,46 @@
+[
+  {
+    "name": "IMDb (IM)",
+    "url": "https://danewchamp.github.io/Da-Repo/imdb.png"
+  },
+  {
+    "name": "IMDb Alt (IM)",
+    "url": "https://danewchamp.github.io/Da-Repo/imdb-alt.png"
+  },
+  {
+    "name": "Rotten Tomatoes (RT)",
+    "url": "https://danewchamp.github.io/Da-Repo/rt.png"
+  },
+  {
+    "name": "Metacritic (MC)",
+    "url": "https://danewchamp.github.io/Da-Repo/mc.png"
+  },
+  {
+    "name": "Letterboxd (LB)",
+    "url": "https://danewchamp.github.io/Da-Repo/lb.png"
+  },
+  {
+    "name": "TMDb (TM)",
+    "url": "https://danewchamp.github.io/Da-Repo/tmdb.png"
+  },
+  {
+    "name": "TMDb Alt (TM)",
+    "url": "https://danewchamp.github.io/Da-Repo/tmdb-alt.png"
+  },
+  {
+    "name": "Trakt (TR)",
+    "url": "https://danewchamp.github.io/Da-Repo/trakt.png"
+  },
+  {
+    "name": "RogerEbert (RE)",
+    "url": "https://danewchamp.github.io/Da-Repo/rogerebert.png"
+  },
+  {
+    "name": "AniList (AN)",
+    "url": "https://danewchamp.github.io/Da-Repo/anilist.png"
+  },
+  {
+    "name": "MyAnimeList (ML)",
+    "url": "https://danewchamp.github.io/Da-Repo/mal.png"
+  }
+]
